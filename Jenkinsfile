@@ -23,34 +23,7 @@ pipeline {
                 }
             }
         }
-        
-        stage("Install kubectl") {
-            steps {
-                script {
-                    // kubectl'yi indir ve kur
-                    sh """
-                        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-                        chmod +x ./kubectl
-                        ./kubectl version --client
-                    """
-                }
-            }
-        }
-        
-        stage('Create Infrastructure') {
-            steps {
-                echo 'Creating kubernetes using Terraform'
-                dir('kubernetes') {
-                    sh """
-                        sed -i 's/secondkey/${ANS_KEYPAIR}/g' main.tf
-                        terraform init
-                        terraform apply -auto-approve -no-color
-                        terraform destroy -auto-approve -no-color
-                    """
-                }
-            }
-        }
-        
+
      
         stage('Deploy to Kubernetes') {
             steps {
