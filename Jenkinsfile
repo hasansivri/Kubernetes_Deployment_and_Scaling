@@ -39,8 +39,8 @@ pipeline {
         
         stage('Create Infrastructure') {
             steps {
-                echo 'Creating infrastructure using Terraform'
-                dir('infrastructure') {
+                echo 'Creating kubernetes using Terraform'
+                dir('kubernetes') {
                     sh """
                         sed -i 's/secondkey/${ANS_KEYPAIR}/g' main.tf
                         terraform init
@@ -57,7 +57,7 @@ pipeline {
                 script {
                     echo 'Kubernetes\'e dağıtılıyor'
                     // kubectl ile Kubernetes'e dağıt
-                    sh 'kubectl apply -f /var/lib/jenkins/workspace/my-first-job/infrastructure/namespace.yml -f /var/lib/jenkins/workspace/my-first-job/infrastructure/hpa.yml -f /var/lib/jenkins/workspace/my-first-job/infrastructure/svc.yml -f /var/lib/jenkins/workspace/my-first-job/infrastructure/deploy.yml --namespace my-namespace'
+                    sh 'kubectl apply -f /var/lib/jenkins/workspace/my-first-job/kubernetes/namespace.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/hpa.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/svc.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/deploy.yml --namespace my-namespace'
                 }
             }
         }
