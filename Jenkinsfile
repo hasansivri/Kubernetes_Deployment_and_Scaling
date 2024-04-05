@@ -6,8 +6,7 @@ pipeline {
         ORGANIZATION_NAME = "hasan05"
         DOCKERHUB_USERNAME = "hasan05"
         REPOSITORY_TAG = "${DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
-        KUBE_MASTER_IP = "54.205.123.79"
-        ANS_KEYPAIR = "secondkey" 
+
     }
    
     stages {
