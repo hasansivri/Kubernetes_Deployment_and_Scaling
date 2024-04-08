@@ -6,7 +6,6 @@ pipeline {
         ORGANIZATION_NAME = "hasan05"
         DOCKERHUB_USERNAME = "hasan05"
         REPOSITORY_TAG = "${DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
-
     }
    
     stages {
@@ -23,13 +22,10 @@ pipeline {
             }
         }
 
-     
-        stage('Deploy to Kubernetes') {
+        stage('Deploy Kubernetes Resources') {
             steps {
                 script {
-                    echo 'Kubernetes\'e dağıtılıyor'
-                    // kubectl ile Kubernetes'e dağıt
-                    sh 'kubectl apply -f /var/lib/jenkins/workspace/my-first-job/kubernetes/namespace.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/hpa.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/svc.yml -f /var/lib/jenkins/workspace/my-first-job/kubernetes/deploy.yml --namespace my-namespace'
+                    sh 'kubectl apply -f namespace.yml -f hpa.yml -f svc.yml -f deploy.yml'
                 }
             }
         }
