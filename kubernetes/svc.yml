@@ -9,8 +9,8 @@ spec:
   selector:
     run: microservice
   ports:
-  - name: http
-    port: 80
+  - protocol: TCP
+    port: 3000
     nodePort: 30002
   type: NodePort
 
